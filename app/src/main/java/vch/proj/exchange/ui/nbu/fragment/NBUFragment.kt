@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.internal.notifyAll
@@ -74,11 +75,16 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
 
         if (null != findCurrency) {
             lifecycleScope.launch {
+                var result = false
                 delay(500)
                 nbuAdapter.currentList.forEachIndexed { index, nbuModel ->
                     if (nbuModel.cc == findCurrency) {
                         recyclerView.smoothScrollToPosition(index)
+                        result = true
                     }
+                }
+                if (false == result) {
+                    Snackbar.make(requireView(), "This currency is not listed (only EUR, USD)", Snackbar.LENGTH_LONG).show()
                 }
             }
         }
