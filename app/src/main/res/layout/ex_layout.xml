@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ex_im_pb_back"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:text="Private Bank"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ex_main_pb_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purple_200">
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ex_im_nbu_back"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_weight="4"
+                android:text="NBU"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="30sp"/>
+            <ImageView
+                android:id="@+id/ex_iv_nbu_datepicker"
+                android:layout_weight="4"
+                android:src="@drawable/ic_calendar"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="30sp"/>
+            <TextView
+                android:id="@+id/ex_tv_nbu_date"
+                android:layout_weight="2"
+                android:text="date"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textSize="30sp"/>
+        </LinearLayout>
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ex_main_nbu_container"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/teal_700">
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
