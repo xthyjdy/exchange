@@ -16,6 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="currency"
+            android:textColor="@color/black"
             android:textSize="20sp"/>
         <TextView
             android:gravity="center"
@@ -23,6 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="buy"
+            android:textColor="@color/black"
             android:textSize="20sp"/>
         <TextView
             android:gravity="center"
@@ -30,6 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="sale"
+            android:textColor="@color/black"
             android:textSize="20sp"/>
 
     </LinearLayout>
@@ -46,15 +49,17 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="name"
-            android:textSize="30sp"/>
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
         <TextView
             android:id="@+id/ex_tv_buy"
             android:gravity="center"
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="40dp"
+            android:textColor="@color/black"
             android:text="buy"
-            android:textSize="30sp"/>
+            android:textSize="24sp"/>
         <TextView
             android:id="@+id/ex_tv_sale"
             android:gravity="center"
@@ -62,7 +67,8 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="sell"
-            android:textSize="30sp"/>
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
 
     </LinearLayout>
 

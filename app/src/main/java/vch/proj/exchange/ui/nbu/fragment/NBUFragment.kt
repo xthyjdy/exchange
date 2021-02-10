@@ -73,6 +73,7 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
 
         getCurrencyList()
 
+        //mark searched currency in (nbu) list
         if (null != findCurrency) {
             lifecycleScope.launch {
                 var result = false

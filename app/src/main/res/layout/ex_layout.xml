@@ -24,8 +24,9 @@
                 android:visibility="gone"/>
 
             <TextView
-                android:text="Private Bank"
+                android:text="@string/pb_name"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:textSize="30sp"/>
@@ -35,7 +36,7 @@
             android:id="@+id/ex_main_pb_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/purple_200">
+            android:background="@color/green">
         </FrameLayout>
 
     </LinearLayout>
@@ -61,7 +62,8 @@
 
             <TextView
                 android:layout_weight="4"
-                android:text="NBU"
+                android:text="@string/nbu_name"
+                android:textColor="@color/black"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -88,8 +90,7 @@
             android:id="@+id/ex_main_nbu_container"
             android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/teal_700">
+            android:layout_height="match_parent">
         </FrameLayout>
 
     </LinearLayout>

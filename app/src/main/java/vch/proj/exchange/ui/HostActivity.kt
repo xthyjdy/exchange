@@ -33,14 +33,20 @@ class HostActivity : AppCompatActivity() {
         run()
     }
 
+    /**
+     * Run - set dependencies and starting application
+     */
     fun run() {
+        //back to recyclerview (pb frame)
         PBBackAction = findViewById(R.id.ex_im_pb_back)
         PBBackAction.setOnClickListener {
             changeFragment(null, TO_PB_FRAGMENT)
         }
 
+        //display main UI interface
         updateUI()
 
+        //show date picker for get currency history
         val datePicker = findViewById<ImageView>(R.id.ex_iv_nbu_datepicker)
         datePicker.setOnClickListener {
 
@@ -60,6 +66,9 @@ class HostActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Update UI - set dependencies and display main UI interface
+     */
     fun updateUI() {
         //run main PB currencies list
         changeFragment(null, TO_PB_FRAGMENT)
@@ -75,6 +84,12 @@ class HostActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Change Fragment - set specified fragment to main container
+     * @param model - instance of ExchangeModel class
+     * @param goToFragment - Int
+     * @param findCurrency - String
+     */
     fun changeFragment(model: ExchangeModel?, goToFragment: Int, findCurrency: String? = null) {
         var fragmentManager: FragmentManager = supportFragmentManager
         var backImageState = ImageView.GONE
