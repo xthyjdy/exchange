@@ -3,6 +3,9 @@ package vch.com.exchange.ui
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
@@ -76,12 +79,16 @@ class HostActivity : AppCompatActivity() {
         //run main NBU currencies list
         changeFragment(null, TO_NBU_FRAGMENT)
 
+        //set specified date(and style)
         val nbuDate = findViewById<TextView>(R.id.ex_tv_nbu_date)
-        nbuDate.text = dateFormat(
+        val dateString = dateFormat(
                 calendar = currencyDate,
                 separator = ".",
                 format = Constant.UI
         )
+        val ss = SpannableString(dateString)
+        ss.setSpan(UnderlineSpan(), 0, dateString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        nbuDate.text = ss
     }
 
     /**
