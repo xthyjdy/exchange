@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import vch.com.exchange.model.PBModel
+import vch.com.exchange.model.PBModel.ExchangeRate
 import vch.proj.exchange.R
+import vch.proj.exchange.util.Helper.l
 
 class PBAdapter(
         private val listener: PBItemClickListener
-) : ListAdapter<PBModel, PBAdapter.PBViewHolder>(PBComparator()) {
+) : ListAdapter<PBModel.ExchangeRate, PBAdapter.PBViewHolder>(PBComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PBViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -22,7 +24,7 @@ class PBAdapter(
     }
 
     override fun onBindViewHolder(holder: PBViewHolder, position: Int) {
-        val currentModel: PBModel = getItem(position)
+        val currentModel: PBModel.ExchangeRate = getItem(position)
         holder.bind(currentModel)
     }
 
@@ -34,22 +36,22 @@ class PBAdapter(
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (RecyclerView.NO_POSITION != position) {
-                    val model = getItem(position) as PBModel
+                    val model = getItem(position) as PBModel.ExchangeRate
                     listener.itemClick(model)
                 }
             }
         }
 
-        fun bind(model: PBModel) {
-            title.text = model.ccy
-            price.text = model.buy.toString()
+        fun bind(model: PBModel.ExchangeRate) {
+            title.text = model.currency
+            price.text = model.purchaseRate.toString()
         }
     }
 
-    class PBComparator() : DiffUtil.ItemCallback<PBModel>() {
-        override fun areItemsTheSame(oldItem: PBModel, newItem: PBModel) = oldItem.base_ccy == newItem.base_ccy
+    class PBComparator() : DiffUtil.ItemCallback<PBModel.ExchangeRate>() {
+        override fun areItemsTheSame(oldItem: PBModel.ExchangeRate, newItem: PBModel.ExchangeRate) = oldItem.currency == newItem.currency
 
-        override fun areContentsTheSame(oldItem: PBModel, newItem: PBModel) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: PBModel.ExchangeRate, newItem: PBModel.ExchangeRate) = oldItem == newItem
     }
 
     /**
@@ -59,7 +61,7 @@ class PBAdapter(
         /**
          * ItemClick - handle selected item
          */
-        fun itemClick(model: PBModel)
+        fun itemClick(model: PBModel.ExchangeRate)
     }
 }
 

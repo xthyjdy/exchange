@@ -25,7 +25,8 @@ class HostActivity : AppCompatActivity() {
     val TO_PB_FRAGMENT = 1
     val TO_PB_DETAIL_FRAGMENT = 2
     val TO_NBU_FRAGMENT = 3
-    var currencyDate: Calendar = Calendar.getInstance()
+    var NBUcurrencyDate: Calendar = Calendar.getInstance()
+    var PBcurrencyDate: Calendar = Calendar.getInstance()
 
     lateinit var PBBackAction: ImageView
 
@@ -49,9 +50,9 @@ class HostActivity : AppCompatActivity() {
         //display main UI interface
         updateUI()
 
-        //show date picker for get currency history
-        val datePicker = findViewById<ImageView>(R.id.ex_iv_nbu_datepicker)
-        datePicker.setOnClickListener {
+        //show nbu date picker for get currency history
+        val NBUDatePicker = findViewById<ImageView>(R.id.ex_iv_nbu_datepicker)
+        NBUDatePicker.setOnClickListener {
 
             val calendar = Calendar.getInstance()
 
@@ -60,12 +61,31 @@ class HostActivity : AppCompatActivity() {
                 calendar.set(Calendar.MONTH, monthOfYear)
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                currencyDate = calendar
+                NBUcurrencyDate = calendar
                 updateUI()
             }
             DatePickerDialog(this, datePickerOnDataSetListener, calendar
                     .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
+        //show pb date picker for get currency history
+        val PBDatePicker = findViewById<ImageView>(R.id.ex_iv_pb_datepicker)
+        PBDatePicker.setOnClickListener {
+
+            val calendar = Calendar.getInstance()
+
+            val datePickerOnDataSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, monthOfYear)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                PBcurrencyDate = calendar
+                updateUI()
+            }
+            DatePickerDialog(this, datePickerOnDataSetListener, calendar
+                .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
     }
 
@@ -79,16 +99,27 @@ class HostActivity : AppCompatActivity() {
         //run main NBU currencies list
         changeFragment(null, TO_NBU_FRAGMENT)
 
-        //set specified date(and style)
+        //set specified nbu date(and style)
         val nbuDate = findViewById<TextView>(R.id.ex_tv_nbu_date)
-        val dateString = dateFormat(
-                calendar = currencyDate,
+        var dateString = dateFormat(
+                calendar = NBUcurrencyDate,
                 separator = ".",
                 format = Constant.UI
         )
-        val ss = SpannableString(dateString)
+        var ss = SpannableString(dateString)
         ss.setSpan(UnderlineSpan(), 0, dateString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         nbuDate.text = ss
+
+        //set specified pb date(and style)
+        val pbDate = findViewById<TextView>(R.id.ex_tv_pb_date)
+        dateString = dateFormat(
+            calendar = PBcurrencyDate,
+            separator = ".",
+            format = Constant.UI
+        )
+        ss = SpannableString(dateString)
+        ss.setSpan(UnderlineSpan(), 0, dateString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        pbDate.text = ss
     }
 
     /**
@@ -108,17 +139,17 @@ class HostActivity : AppCompatActivity() {
                         backImageState = ImageView.GONE
                         PBBackAction.visibility = backImageState
                         fragmentManager.beginTransaction()
-                                .replace(R.id.ex_main_pb_container, PBFragment(currencyDate))
+                                .replace(R.id.ex_main_pb_container, PBFragment(PBcurrencyDate))
                                 .commit()
                     }
                     TO_NBU_FRAGMENT -> {
                         fragmentManager.beginTransaction()
-                                .replace(R.id.ex_main_nbu_container, NBUFragment(currencyDate))
+                                .replace(R.id.ex_main_nbu_container, NBUFragment(NBUcurrencyDate))
                                 .commit()
                     }
                 }
             }
-            is PBModel -> { //to PD currency detail
+            is PBModel.ExchangeRate -> { //to PD currency detail
                 backImageState = ImageView.VISIBLE
                 PBBackAction.visibility = backImageState
                 fragmentManager.beginTransaction()
@@ -126,7 +157,7 @@ class HostActivity : AppCompatActivity() {
                         .commit()
 
                 if (null != desiredСurrency) {
-                    val fragment =  NBUFragment.getInstance(desiredСurrency, currencyDate)
+                    val fragment =  NBUFragment.getInstance(desiredСurrency, NBUcurrencyDate)
                     fragmentManager.beginTransaction()
                             .replace(R.id.ex_main_nbu_container, fragment)
                             .commit()

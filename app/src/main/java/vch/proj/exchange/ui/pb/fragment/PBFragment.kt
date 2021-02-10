@@ -15,7 +15,9 @@ import vch.com.exchange.ui.HostActivity
 import vch.com.exchange.ui.pb.ExchangePBViewModelFactory
 import vch.com.exchange.ui.pb.PBAdapter
 import vch.com.exchange.ui.pb.PBViewModel
+import vch.com.exchange.util.Constant
 import vch.proj.exchange.R
+import vch.proj.exchange.util.Helper
 import vch.proj.exchange.util.Helper.l
 import java.util.*
 
@@ -23,7 +25,7 @@ import java.util.*
  * PBFragment - fragment for Private Bank fragment container
  */
 class PBFragment(
-        private val currencyDate: Calendar = Calendar.getInstance()
+    private val currencyDate: Calendar = Calendar.getInstance()
 ) : Fragment(), PBAdapter.PBItemClickListener {
     lateinit var viewModel: PBViewModel
 
@@ -39,11 +41,11 @@ class PBFragment(
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        viewModel.models.observe(requireActivity(), Observer { r ->
+        viewModel.model.observe(requireActivity(), Observer { r ->
             if (r.isSuccessful) {
-                pbAdapter.submitList(r.body())
-            } else {
-                l(r.errorBody().toString())
+                val pbModel: PBModel = r.body() as PBModel
+                val exchangeRate = pbModel.exchangeRate as List<PBModel.ExchangeRate>
+                pbAdapter.submitList(exchangeRate)
             }
         })
 
@@ -55,18 +57,25 @@ class PBFragment(
     /**
      * ItemClick - transfer selected item to HOST activity
      */
-    override fun itemClick(model: PBModel) {
+    override fun itemClick(model: PBModel.ExchangeRate) {
         val host = (activity as HostActivity)
         host.changeFragment(
-                model = model,
-                goToFragment =  HostActivity().TO_PB_DETAIL_FRAGMENT,
-                desiredСurrency = model.ccy)
+            model = model,
+            goToFragment =  HostActivity().TO_PB_DETAIL_FRAGMENT,
+            desiredСurrency = model.currency)
     }
 
     /**
      * Get Currency List - get currency list from repository
      */
     private fun getCurrencyList() {
-        viewModel.getAll()
+//        viewModel.getAll()
+        val date = Helper.dateFormat(
+                calendar = currencyDate,
+                separator = ".",
+                format = Constant.PB_API
+        )
+
+        viewModel.getAll(date)
     }
 }

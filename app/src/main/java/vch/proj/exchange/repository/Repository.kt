@@ -7,8 +7,12 @@ import vch.com.exchange.model.PBModel
 
 class Repository {
     //PRIVATE BANK
-    suspend fun pbGetAll(): Response<List<PBModel>> {
-        return RetrofitInstance.pbApi.getAll()
+//    suspend fun pbGetAll(): Response<List<PBModel>> {
+//        return RetrofitInstance.pbApi.getAll()
+//    }
+
+    suspend fun pbGetAll(date: String): Response<PBModel> {
+        return RetrofitInstance.pbApi.getAll(date)
     }
 
     //NBU

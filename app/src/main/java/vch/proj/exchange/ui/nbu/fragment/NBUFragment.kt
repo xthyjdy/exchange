@@ -99,7 +99,7 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
         val date = dateFormat(
                 calendar = currencyDate,
                 separator = "",
-                format = Constant.API
+                format = Constant.NBU_API
         )
 
         viewModel.getAll(date)

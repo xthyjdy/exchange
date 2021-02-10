@@ -14,7 +14,7 @@ import vch.proj.exchange.util.Helper.l
 fun TextView.priceFormat(price: Double): String = "%.2f".format(price).toString()
 
 class PBDetailFragment : Fragment() {
-    private lateinit var data: PBModel
+    private lateinit var data: PBModel.ExchangeRate
 
     companion object {
         fun getInstance(model: ExchangeModel) : Fragment {
@@ -30,20 +30,20 @@ class PBDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        data = (arguments?.get("data")) as PBModel
+        data = (arguments?.get("data")) as PBModel.ExchangeRate
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.ex_pb_item_details, container, false)
 
         val name = v.findViewById<TextView>(R.id.ex_tv_name)
-        name.text = data.ccy
+        name.text = data.currency
 
         val buy = v.findViewById<TextView>(R.id.ex_tv_buy)
-        buy.text = buy.priceFormat(data.buy)
+        buy.text = buy.priceFormat(data.purchaseRate)
 
         val sale = v.findViewById<TextView>(R.id.ex_tv_sale)
-        sale.text = sale.priceFormat(data.sale)
+        sale.text = sale.priceFormat(data.saleRate)
 
         return v
     }

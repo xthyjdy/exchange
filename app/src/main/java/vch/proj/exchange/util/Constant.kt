@@ -11,8 +11,10 @@ class Constant {
         //NBU - NATIONAL UKRAINIAN BANK
         const val NBU_URL = "https://bank.gov.ua"
 
-        const val API = 0
+        const val NBU_API = 0
 
-        const val UI = 1
+        const val PB_API = 2
+
+        const val UI = 3
     }
 }

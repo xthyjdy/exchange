@@ -40,7 +40,7 @@ object Helper {
      * @param format - Int
      * @return String - formatted Calendar data
      */
-    fun dateFormat(calendar: Calendar = Calendar.getInstance(), separator: String = "", format: Int = Constant.API): String {
+    fun dateFormat(calendar: Calendar = Calendar.getInstance(), separator: String = "", format: Int = Constant.NBU_API): String {
         val y = calendar.get(Calendar.YEAR).toString()
         val m = "%02d".format(calendar.get(Calendar.MONTH) + 1)
         val d = "%02d".format(calendar.get(Calendar.DAY_OF_MONTH))
@@ -49,7 +49,10 @@ object Helper {
             Constant.UI -> {
                 "${d}${separator}${m}${separator}${y}"
             }
-            Constant.API -> {
+            Constant.PB_API -> {
+                "${d}${separator}${m}${separator}${y}"
+            }
+            Constant.NBU_API -> {
                 "${y}${separator}${m}${separator}${d}"
             }
             else -> "${y}${separator}${m}${separator}${d}"

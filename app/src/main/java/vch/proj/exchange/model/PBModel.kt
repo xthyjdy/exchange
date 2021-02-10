@@ -9,4 +9,13 @@ data class PBModel(
         val base_ccy: String,
         val buy: Double,
         val sale: Double,
-) : ExchangeModel() {}
+        val exchangeRate: List<ExchangeRate>
+) : ExchangeModel() {
+
+        @Parcelize
+        data class ExchangeRate(
+                val currency: String,
+                val purchaseRate: Double,
+                val saleRate: Double
+        ) : ExchangeModel()
+}
