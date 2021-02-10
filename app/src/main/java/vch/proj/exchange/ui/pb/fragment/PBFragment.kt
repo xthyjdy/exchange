@@ -19,7 +19,12 @@ import vch.proj.exchange.R
 import vch.proj.exchange.util.Helper.l
 import java.util.*
 
-class PBFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragment(), PBAdapter.PBItemClickListener {
+/**
+ * PBFragment - fragment for Private Bank fragment container
+ */
+class PBFragment(
+        private val currencyDate: Calendar = Calendar.getInstance()
+) : Fragment(), PBAdapter.PBItemClickListener {
     lateinit var viewModel: PBViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,11 +52,20 @@ class PBFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragment
         return v
     }
 
+    /**
+     * ItemClick - transfer selected item to HOST activity
+     */
     override fun itemClick(model: PBModel) {
         val host = (activity as HostActivity)
-        host.changeFragment(model = model, goToFragment =  HostActivity().TO_PB_DETAIL_FRAGMENT, findCurrency = model.ccy)
+        host.changeFragment(
+                model = model,
+                goToFragment =  HostActivity().TO_PB_DETAIL_FRAGMENT,
+                desiredСurrency = model.ccy)
     }
 
+    /**
+     * Get Currency List - get currency list from repository
+     */
     private fun getCurrencyList() {
         viewModel.getAll()
     }

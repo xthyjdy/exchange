@@ -95,9 +95,9 @@ class HostActivity : AppCompatActivity() {
      * Change Fragment - set specified fragment to main container
      * @param model - instance of ExchangeModel class
      * @param goToFragment - Int
-     * @param findCurrency - String
+     * @param desiredСurrency - String
      */
-    fun changeFragment(model: ExchangeModel?, goToFragment: Int, findCurrency: String? = null) {
+    fun changeFragment(model: ExchangeModel?, goToFragment: Int, desiredСurrency: String? = null) {
         var fragmentManager: FragmentManager = supportFragmentManager
         var backImageState = ImageView.GONE
 
@@ -125,8 +125,8 @@ class HostActivity : AppCompatActivity() {
                         .replace(R.id.ex_main_pb_container, PBDetailFragment.getInstance(model))
                         .commit()
 
-                if (null != findCurrency) {
-                    val fragment =  NBUFragment.getInstance(findCurrency, currencyDate)
+                if (null != desiredСurrency) {
+                    val fragment =  NBUFragment.getInstance(desiredСurrency, currencyDate)
                     fragmentManager.beginTransaction()
                             .replace(R.id.ex_main_nbu_container, fragment)
                             .commit()

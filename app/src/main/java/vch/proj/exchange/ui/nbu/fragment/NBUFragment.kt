@@ -13,28 +13,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.internal.notifyAll
-import vch.com.exchange.model.NBUModel
-import vch.com.exchange.model.PBModel
 import vch.com.exchange.repository.Repository
-import vch.com.exchange.ui.HostActivity
 import vch.com.exchange.ui.nbu.NBUAdapter
 import vch.com.exchange.ui.pb.*
 import vch.com.exchange.util.Constant
 import vch.proj.exchange.R
-import vch.proj.exchange.model.ExchangeModel
 import vch.proj.exchange.util.Helper.dateFormat
 import vch.proj.exchange.util.Helper.l
 import java.util.*
 
+/**
+ * NBUFragment - fragment for NBU fragment container
+ */
 class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragment() {
     lateinit var viewModel: NBUViewModel
-    private var findCurrency: String? = null
+    //currency which we want to mark
+    private var desiredСurrency: String? = null
 
     companion object {
-        fun getInstance(findCurrency: String, currencyDate: Calendar = Calendar.getInstance()) : NBUFragment {
+        fun getInstance(desiredСurrency: String, currencyDate: Calendar = Calendar.getInstance()) : NBUFragment {
             val args = Bundle()
-            args.putString("find_currency", findCurrency)
+            args.putString("desired_currency", desiredСurrency)
             val fragment = NBUFragment(currencyDate)
             fragment.arguments = args
 
@@ -46,7 +45,7 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
         super.onCreate(savedInstanceState)
 
         if (null != arguments) {
-            findCurrency = arguments?.get("find_currency")?.toString()
+            desiredСurrency = arguments?.get("desired_currency")?.toString()
         }
     }
 
@@ -56,7 +55,7 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
 
         val repository = Repository()
         viewModel = ViewModelProvider(this, ExchangeNBUViewModelFactory(repository)).get(NBUViewModel::class.java)
-        val nbuAdapter = NBUAdapter(findCurrency)
+        val nbuAdapter = NBUAdapter(desiredСurrency)
         val recyclerView = v.findViewById<RecyclerView>(R.id.ex_recycler_view_nbu)
         recyclerView?.apply {
             adapter = nbuAdapter
@@ -74,12 +73,12 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
         getCurrencyList()
 
         //mark searched currency in (nbu) list
-        if (null != findCurrency) {
+        if (null != desiredСurrency) {
             lifecycleScope.launch {
                 var result = false
                 delay(500)
                 nbuAdapter.currentList.forEachIndexed { index, nbuModel ->
-                    if (nbuModel.cc == findCurrency) {
+                    if (nbuModel.cc == desiredСurrency) {
                         recyclerView.smoothScrollToPosition(index)
                         result = true
                     }
@@ -93,6 +92,9 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
         return v
     }
 
+    /**
+     * Get Currency List - get currency list from repository
+     */
     private fun getCurrencyList() {
         val date = dateFormat(
                 calendar = currencyDate,

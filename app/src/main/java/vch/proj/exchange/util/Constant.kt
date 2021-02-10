@@ -1,5 +1,8 @@
 package vch.com.exchange.util
 
+/**
+ * Constant - holder for general constant of app
+ */
 class Constant {
     companion object {
         //PB - PRIVATE_BANK

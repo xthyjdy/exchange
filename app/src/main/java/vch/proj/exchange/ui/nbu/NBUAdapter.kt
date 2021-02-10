@@ -13,7 +13,9 @@ import vch.com.exchange.model.NBUModel
 import vch.proj.exchange.R
 import vch.proj.exchange.util.Helper.l
 
-class NBUAdapter(var findCurrency: String? = null) : ListAdapter<NBUModel, NBUAdapter.NBUViewHolder>(NBUComparator()) {
+class NBUAdapter(
+        private var desiredСurrency: String? = null
+) : ListAdapter<NBUModel, NBUAdapter.NBUViewHolder>(NBUComparator()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NBUViewHolder {
         val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.ex_item_nbu, parent, false)
@@ -32,7 +34,7 @@ class NBUAdapter(var findCurrency: String? = null) : ListAdapter<NBUModel, NBUAd
         var rl: RelativeLayout = itemView.findViewById(R.id.ex_nbu_rl_item_wrapper)
 
         fun bind(model: NBUModel) {
-            if (model.cc == findCurrency) {
+            if (model.cc == desiredСurrency) {
                 rl.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.green))
             }
 

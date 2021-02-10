@@ -11,6 +11,8 @@ import vch.proj.exchange.R
 import vch.proj.exchange.model.ExchangeModel
 import vch.proj.exchange.util.Helper.l
 
+fun TextView.priceFormat(price: Double): String = "%.2f".format(price).toString()
+
 class PBDetailFragment : Fragment() {
     private lateinit var data: PBModel
 
@@ -38,10 +40,10 @@ class PBDetailFragment : Fragment() {
         name.text = data.ccy
 
         val buy = v.findViewById<TextView>(R.id.ex_tv_buy)
-        buy.text = data.buy.toString()
+        buy.text = buy.priceFormat(data.buy)
 
         val sale = v.findViewById<TextView>(R.id.ex_tv_sale)
-        sale.text = data.sale.toString()
+        sale.text = sale.priceFormat(data.sale)
 
         return v
     }

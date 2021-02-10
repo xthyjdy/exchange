@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import vch.com.exchange.model.PBModel
 import vch.proj.exchange.R
 
-class PBAdapter(private val listener: PBItemClickListener) : ListAdapter<PBModel, PBAdapter.PBViewHolder>(PBComparator()) {
+class PBAdapter(
+        private val listener: PBItemClickListener
+) : ListAdapter<PBModel, PBAdapter.PBViewHolder>(PBComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PBViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -50,7 +52,13 @@ class PBAdapter(private val listener: PBItemClickListener) : ListAdapter<PBModel
         override fun areContentsTheSame(oldItem: PBModel, newItem: PBModel) = oldItem == newItem
     }
 
+    /**
+     * PBItemClickListener - interface for handle clicks
+     */
     interface PBItemClickListener {
+        /**
+         * ItemClick - handle selected item
+         */
         fun itemClick(model: PBModel)
     }
 }

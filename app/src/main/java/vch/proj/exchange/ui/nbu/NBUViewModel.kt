@@ -10,9 +10,15 @@ import vch.com.exchange.model.NBUModel
 import vch.com.exchange.model.PBModel
 import vch.com.exchange.repository.Repository
 
+/**
+ * NBUViewModel - view model for NBUFragment class
+ */
 class NBUViewModel(private val repository: Repository) : ViewModel() {
     val models: MutableLiveData<Response<List<NBUModel>>> = MutableLiveData()
 
+    /**
+     * Get All - get currency list from repository
+     */
     fun getAll(date: String) {
         viewModelScope.launch {
             val response = repository.nbuGetAll(date)
@@ -21,6 +27,9 @@ class NBUViewModel(private val repository: Repository) : ViewModel() {
     }
 }
 
+/**
+ * ExchangeNBUViewModelFactory - factory for create  NBUViewModel instance
+ */
 class ExchangeNBUViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(NBUViewModel::class.java)) {

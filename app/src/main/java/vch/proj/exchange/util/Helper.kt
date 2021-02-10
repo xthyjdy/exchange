@@ -4,6 +4,9 @@ import android.util.Log
 import vch.com.exchange.util.Constant
 import java.util.*
 
+/**
+ * Helper - utils for handle app
+ */
 object Helper {
     const val MY_LOG = "my_log"
     const val prefix = "___"
@@ -30,6 +33,13 @@ object Helper {
         }
     }
 
+    /**
+     * DateFormat - handle data format
+     * @param calendar - instance of Calendar
+     * @param separator - String
+     * @param format - Int
+     * @return String - formatted Calendar data
+     */
     fun dateFormat(calendar: Calendar = Calendar.getInstance(), separator: String = "", format: Int = Constant.API): String {
         val y = calendar.get(Calendar.YEAR).toString()
         val m = "%02d".format(calendar.get(Calendar.MONTH) + 1)
