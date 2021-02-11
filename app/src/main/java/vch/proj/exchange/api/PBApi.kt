@@ -5,12 +5,17 @@ import retrofit2.Response
 import retrofit2.http.Query
 import vch.com.exchange.model.PBModel
 
+/**
+ * NBU Api - interfase which allow connect to private bank api
+ */
 interface PBApi {
-    @GET("/p24api/pubinfo?exchange&json&coursid=11")
-    suspend fun getCurrent() : Response<List<PBModel>>
-
+    /**
+     * Get By Date - method which get data by date from private bank api
+     * @param date - String
+     * @return Response<PBModel>
+     */
     @GET("https://api.privatbank.ua/p24api/exchange_rates?json&")
-    suspend fun getAll(
+    suspend fun getByDate(
             @Query("date") date: String
     ) : Response<PBModel>
 }

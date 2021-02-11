@@ -102,6 +102,6 @@ class NBUFragment(var currencyDate: Calendar = Calendar.getInstance()) : Fragmen
                 format = Constant.NBU_API
         )
 
-        viewModel.getAll(date)
+        viewModel.getByDate(date)
     }
 }

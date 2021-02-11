@@ -13,28 +13,18 @@ import vch.com.exchange.repository.Repository
  * PBViewModel - view model for PBFragment class
  */
 class PBViewModel(private val repository: Repository) : ViewModel() {
-//    val modelSSS: MutableLiveData<Response<List<PBModel>>> = MutableLiveData()
     val model: MutableLiveData<Response<PBModel>> = MutableLiveData()
 
     /**
-     * _ - get currency list from repository by date
+     * Get By Date - method which get data by date from repository and set it to main model
+     * @param date - String
      */
-    fun getAll(date: String) {
+    fun getByDate(date: String) {
         viewModelScope.launch {
-            val response = repository.pbGetAll(date)
+            val response = repository.pbGetByDate(date)
             model.value = response
         }
     }
-
-    /**
-     * Get All - get currency list from repository
-     */
-//    fun getAll() {
-//        viewModelScope.launch {
-//            val response = repository.pbGetAll()
-//            modelSSS.value = response
-//        }
-//    }
 }
 
 /**

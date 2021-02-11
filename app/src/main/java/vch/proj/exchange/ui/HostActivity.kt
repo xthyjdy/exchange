@@ -22,18 +22,17 @@ import vch.proj.exchange.util.Helper.l
 import java.util.*
 
 class HostActivity : AppCompatActivity() {
+    private var NBUcurrencyDate: Calendar = Calendar.getInstance()
+    private var PBcurrencyDate: Calendar = Calendar.getInstance()
     val TO_PB_FRAGMENT = 1
     val TO_PB_DETAIL_FRAGMENT = 2
     val TO_NBU_FRAGMENT = 3
-    var NBUcurrencyDate: Calendar = Calendar.getInstance()
-    var PBcurrencyDate: Calendar = Calendar.getInstance()
-
     lateinit var PBBackAction: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ex_layout)
-
+        
         run()
     }
 
@@ -47,7 +46,7 @@ class HostActivity : AppCompatActivity() {
             changeFragment(null, TO_PB_FRAGMENT)
         }
 
-        //display main UI interface
+        //set main UI
         updatePBUI()
         updateNBUUI()
 
@@ -91,7 +90,7 @@ class HostActivity : AppCompatActivity() {
     }
 
     /**
-     * Update UI - set dependencies and display main UI interface
+     * Update Private Bank UI - set dependencies and display main UI interface
      */
     fun updatePBUI() {
         //run main PB currencies list
@@ -109,6 +108,9 @@ class HostActivity : AppCompatActivity() {
         pbDate.text = ss
     }
 
+    /**
+     * Update NBU UI - set dependencies and display main UI interface
+     */
     fun updateNBUUI() {
         //run main NBU currencies list
         changeFragment(null, TO_NBU_FRAGMENT)
@@ -165,9 +167,6 @@ class HostActivity : AppCompatActivity() {
                             .replace(R.id.ex_main_nbu_container, fragment)
                             .commit()
                 }
-            }
-            is NBUModel -> { //to NBU currency detail
-                l("changeFragment with NBUModel")
             }
         }
     }

@@ -17,11 +17,12 @@ class NBUViewModel(private val repository: Repository) : ViewModel() {
     val models: MutableLiveData<Response<List<NBUModel>>> = MutableLiveData()
 
     /**
-     * Get All - get currency list from repository
+     * Get By Date - method which get data by date from repository and set it to main model
+     * @param date - String
      */
-    fun getAll(date: String) {
+    fun getByDate(date: String) {
         viewModelScope.launch {
-            val response = repository.nbuGetAll(date)
+            val response = repository.nbuGetByDate(date)
             models.value = response
         }
     }

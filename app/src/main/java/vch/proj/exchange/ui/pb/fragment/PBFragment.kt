@@ -69,13 +69,12 @@ class PBFragment(
      * Get Currency List - get currency list from repository
      */
     private fun getCurrencyList() {
-//        viewModel.getAll()
         val date = Helper.dateFormat(
                 calendar = currencyDate,
                 separator = ".",
                 format = Constant.PB_API
         )
 
-        viewModel.getAll(date)
+        viewModel.getByDate(date)
     }
 }
