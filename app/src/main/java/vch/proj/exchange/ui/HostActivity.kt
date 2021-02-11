@@ -48,7 +48,8 @@ class HostActivity : AppCompatActivity() {
         }
 
         //display main UI interface
-        updateUI()
+        updatePBUI()
+        updateNBUUI()
 
         //show nbu date picker for get currency history
         val NBUDatePicker = findViewById<ImageView>(R.id.ex_iv_nbu_datepicker)
@@ -62,7 +63,7 @@ class HostActivity : AppCompatActivity() {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 NBUcurrencyDate = calendar
-                updateUI()
+                updateNBUUI()
             }
             DatePickerDialog(this, datePickerOnDataSetListener, calendar
                     .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -81,7 +82,7 @@ class HostActivity : AppCompatActivity() {
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 PBcurrencyDate = calendar
-                updateUI()
+                updatePBUI()
             }
             DatePickerDialog(this, datePickerOnDataSetListener, calendar
                 .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -92,10 +93,23 @@ class HostActivity : AppCompatActivity() {
     /**
      * Update UI - set dependencies and display main UI interface
      */
-    fun updateUI() {
+    fun updatePBUI() {
         //run main PB currencies list
         changeFragment(null, TO_PB_FRAGMENT)
 
+        //set specified pb date(and style)
+        val pbDate = findViewById<TextView>(R.id.ex_tv_pb_date)
+        val dateString = dateFormat(
+            calendar = PBcurrencyDate,
+            separator = ".",
+            format = Constant.UI
+        )
+        val ss = SpannableString(dateString)
+        ss.setSpan(UnderlineSpan(), 0, dateString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        pbDate.text = ss
+    }
+
+    fun updateNBUUI() {
         //run main NBU currencies list
         changeFragment(null, TO_NBU_FRAGMENT)
 
@@ -106,20 +120,9 @@ class HostActivity : AppCompatActivity() {
                 separator = ".",
                 format = Constant.UI
         )
-        var ss = SpannableString(dateString)
+        val ss = SpannableString(dateString)
         ss.setSpan(UnderlineSpan(), 0, dateString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         nbuDate.text = ss
-
-        //set specified pb date(and style)
-        val pbDate = findViewById<TextView>(R.id.ex_tv_pb_date)
-        dateString = dateFormat(
-            calendar = PBcurrencyDate,
-            separator = ".",
-            format = Constant.UI
-        )
-        ss = SpannableString(dateString)
-        ss.setSpan(UnderlineSpan(), 0, dateString.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        pbDate.text = ss
     }
 
     /**
