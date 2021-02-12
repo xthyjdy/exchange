@@ -24,9 +24,9 @@ import java.util.*
 class HostActivity : AppCompatActivity() {
     private var NBUcurrencyDate: Calendar = Calendar.getInstance()
     private var PBcurrencyDate: Calendar = Calendar.getInstance()
-    val TO_PB_FRAGMENT = 1
-    val TO_PB_DETAIL_FRAGMENT = 2
-    val TO_NBU_FRAGMENT = 3
+//    val TO_PB_FRAGMENT = 1
+//    val TO_PB_DETAIL_FRAGMENT = 2
+//    val TO_NBU_FRAGMENT = 3
     lateinit var PBBackAction: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class HostActivity : AppCompatActivity() {
         //back to recyclerview (pb frame)
         PBBackAction = findViewById(R.id.ex_im_pb_back)
         PBBackAction.setOnClickListener {
-            changeFragment(null, TO_PB_FRAGMENT)
+            changeFragment(null, SpecifyDispay.TO_PB_FRAGMENT)
         }
 
         //set main UI
@@ -94,7 +94,7 @@ class HostActivity : AppCompatActivity() {
      */
     fun updatePBUI() {
         //run main PB currencies list
-        changeFragment(null, TO_PB_FRAGMENT)
+        changeFragment(null, SpecifyDispay.TO_PB_FRAGMENT)
 
         //set specified pb date(and style)
         val pbDate = findViewById<TextView>(R.id.ex_tv_pb_date)
@@ -113,7 +113,7 @@ class HostActivity : AppCompatActivity() {
      */
     fun updateNBUUI() {
         //run main NBU currencies list
-        changeFragment(null, TO_NBU_FRAGMENT)
+        changeFragment(null, SpecifyDispay.TO_NBU_FRAGMENT)
 
         //set specified nbu date(and style)
         val nbuDate = findViewById<TextView>(R.id.ex_tv_nbu_date)
@@ -133,21 +133,21 @@ class HostActivity : AppCompatActivity() {
      * @param goToFragment - Int
      * @param desiredСurrency - String
      */
-    fun changeFragment(model: ExchangeModel?, goToFragment: Int, desiredСurrency: String? = null) {
+    fun changeFragment(model: ExchangeModel?, goToFragment: SpecifyDispay, desiredСurrency: String? = null) {
         var fragmentManager: FragmentManager = supportFragmentManager
         var backImageState = ImageView.GONE
 
         when (model) {
             null -> {
                 when (goToFragment) {
-                    TO_PB_FRAGMENT -> {
+                    SpecifyDispay.TO_PB_FRAGMENT -> {
                         backImageState = ImageView.GONE
                         PBBackAction.visibility = backImageState
                         fragmentManager.beginTransaction()
                                 .replace(R.id.ex_main_pb_container, PBFragment(PBcurrencyDate))
                                 .commit()
                     }
-                    TO_NBU_FRAGMENT -> {
+                    SpecifyDispay.TO_NBU_FRAGMENT -> {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.ex_main_nbu_container, NBUFragment(NBUcurrencyDate))
                                 .commit()
@@ -162,12 +162,17 @@ class HostActivity : AppCompatActivity() {
                         .commit()
 
                 if (null != desiredСurrency) {
-                    val fragment =  NBUFragment.getInstance(desiredСurrency, NBUcurrencyDate)
                     fragmentManager.beginTransaction()
-                            .replace(R.id.ex_main_nbu_container, fragment)
+                            .replace(R.id.ex_main_nbu_container, NBUFragment.getInstance(desiredСurrency, NBUcurrencyDate))
                             .commit()
                 }
             }
         }
+    }
+
+    enum class SpecifyDispay {
+        TO_PB_FRAGMENT,
+        TO_PB_DETAIL_FRAGMENT,
+        TO_NBU_FRAGMENT
     }
 }

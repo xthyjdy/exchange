@@ -61,7 +61,7 @@ class PBFragment(
         val host = (activity as HostActivity)
         host.changeFragment(
             model = model,
-            goToFragment =  HostActivity().TO_PB_DETAIL_FRAGMENT,
+            goToFragment = HostActivity.SpecifyDispay.TO_PB_DETAIL_FRAGMENT,
             desiredСurrency = model.currency)
     }
 
